@@ -1,0 +1,2 @@
+# srdn
+The Sardine CLI
