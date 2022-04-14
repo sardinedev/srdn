@@ -104,7 +104,7 @@ fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, 
     let mut output_file_path = PathBuf::new();
     output_file_path.push(path_to_output);
 
-    if !path_to_output.is_file() {
+    if !path_to_output.to_str().unwrap().ends_with(".css") {
         output_file_path.push(path_to_file);
     }
     println!("Dist {:?}", output_file_path.display());
