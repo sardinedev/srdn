@@ -6,11 +6,26 @@ use std::{
     path::PathBuf,
 };
 
+fn true_by_default() -> bool {
+    true
+}
+
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct SrdnSettings {
-    #[serde(rename = "cssModules")]
-    css_module: bool,
+    #[serde(default = "true_by_default", rename = "cssModules")]
+    pub css_module: bool,
+    #[serde(default)]
+    pub minify: bool,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct Exports {
+    #[serde(default)]
+    default: Option<String>,
+    #[serde(default)]
+    require: Option<String>,
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
@@ -26,14 +41,20 @@ pub struct Settings {
     pub main: Option<String>,
 
     #[serde(default)]
-    pub srdn: Option<SrdnSettings>,
+    pub srdn: SrdnSettings,
+
+    #[serde(default)]
+    pub exports: Option<Exports>,
 }
 
-pub fn read_package() -> Option<Settings>  {
+pub fn read_package() -> Option<Settings> {
     let settings_path = find_settings();
     if let Some(file_path) = settings_path {
         let settings = read_to_string(file_path).unwrap();
-        return Some(serde_json::from_str::<Settings>(&settings).expect("failed to read config (.swcrc) file"));
+        return Some(
+            serde_json::from_str::<Settings>(&settings)
+                .expect("failed to read package.json"),
+        );
     }
     None
 }

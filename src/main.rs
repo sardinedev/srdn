@@ -9,6 +9,8 @@ use serde_json::{json, Value};
 use std::error::Error;
 use std::{fmt, fs, path::PathBuf};
 
+use util::Settings;
+
 /// 4 in 5 sardines recommend this CLI
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -56,8 +58,7 @@ fn main() -> Result<(), std::io::Error> {
         println!("verbose: {:?}", cli.debug);
     }
 
-    let config = util::read_package();
-    println!("config: {:?}", config);
+    let settings = util::read_package().unwrap();
 
     // You can check for the existence of subcommands, and if found use their
     // matches just as you would the top level cmd
@@ -71,7 +72,7 @@ fn main() -> Result<(), std::io::Error> {
             // reads and build an individual css file
             if let Some(file_path) = file {
                 if let Some(file_path_out) = output_file {
-                    match build_css(&PathBuf::from(file_path), file_path_out) {
+                    match build_css(&PathBuf::from(file_path), file_path_out, &settings) {
                         Ok(css_modules_map) => println!("{}", css_modules_map),
                         Err(e) => println!("{:?}", e),
                     }
@@ -86,7 +87,7 @@ fn main() -> Result<(), std::io::Error> {
                         match entry {
                             Ok(file_path) => {
                                 println!("{:?}", file_path);
-                                match build_css(&file_path, dist) {
+                                match build_css(&file_path, dist, &settings) {
                                     Ok(css_modules_map) => println!("{}", css_modules_map),
                                     Err(e) => println!("{:?}", e),
                                 }
@@ -94,8 +95,7 @@ fn main() -> Result<(), std::io::Error> {
                             Err(e) => println!("{:?}", e),
                         }
                     }
-                 }
-
+                }
             }
         }
 
@@ -104,7 +104,11 @@ fn main() -> Result<(), std::io::Error> {
     Ok(())
 }
 
-fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, Box<dyn Error>> {
+fn build_css(
+    path_to_file: &PathBuf,
+    path_to_output: &PathBuf,
+    settings: &Settings,
+) -> Result<Value, Box<dyn Error>> {
     let src_file_path = path_to_file.to_str().unwrap();
     let mut output_file_path = PathBuf::new();
     output_file_path.push(path_to_output);
@@ -123,7 +127,7 @@ fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, 
     };
     let mut stylesheet = StyleSheet::parse(src_file_path.into(), &contents, options).unwrap();
 
-    let targets = browserslist_to_targets(vec!["chrome 98".to_string()]).unwrap();
+    let targets = browserslist_to_targets(&settings.browserslist).unwrap();
     stylesheet
         .minify(MinifyOptions {
             targets,
@@ -134,10 +138,11 @@ fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, 
     let res = stylesheet
         .to_css(PrinterOptions {
             targets,
-            minify: true,
+            minify: settings.srdn.minify,
             ..PrinterOptions::default()
         })
         .unwrap();
+        
     let code = res.code;
 
     // creates all sub-directories if they don't exist yet
@@ -154,46 +159,47 @@ fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, 
 }
 
 // This should from package.json
-fn browserslist_to_targets(query: Vec<String>) -> Result<Option<Browsers>, browserslist::Error> {
-    if query.is_empty() {
-        return Ok(None);
-    }
-
-    let res = resolve(query, &Opts::new())?;
-
-    let mut browsers = Browsers::default();
-    let mut has_any = false;
-    for distrib in res {
-        macro_rules! browser {
-            ($browser: ident) => {{
-                if let Some(v) = parse_version(distrib.version()) {
-                    if browsers.$browser.is_none() || v < browsers.$browser.unwrap() {
-                        browsers.$browser = Some(v);
-                        has_any = true;
+fn browserslist_to_targets(
+    targets: &Option<Vec<String>>,
+) -> Result<Option<Browsers>, browserslist::Error> {
+    if let Some(query) = targets {
+        if query.is_empty() {
+            return Ok(None);
+        }
+        let res = resolve(query, &Opts::new())?;
+        let mut browsers = Browsers::default();
+        let mut has_any = false;
+        for distrib in res {
+            macro_rules! browser {
+                ($browser: ident) => {{
+                    if let Some(v) = parse_version(distrib.version()) {
+                        if browsers.$browser.is_none() || v < browsers.$browser.unwrap() {
+                            browsers.$browser = Some(v);
+                            has_any = true;
+                        }
                     }
-                }
-            }};
+                }};
+            }
+            match distrib.name() {
+                "android" => browser!(android),
+                "chrome" | "and_chr" => browser!(chrome),
+                "edge" => browser!(edge),
+                "firefox" | "and_ff" => browser!(firefox),
+                "ie" => browser!(ie),
+                "ios_saf" => browser!(ios_saf),
+                "opera" | "op_mob" => browser!(opera),
+                "safari" => browser!(safari),
+                "samsung" => browser!(samsung),
+                _ => {}
+            }
         }
-
-        match distrib.name() {
-            "android" => browser!(android),
-            "chrome" | "and_chr" => browser!(chrome),
-            "edge" => browser!(edge),
-            "firefox" | "and_ff" => browser!(firefox),
-            "ie" => browser!(ie),
-            "ios_saf" => browser!(ios_saf),
-            "opera" | "op_mob" => browser!(opera),
-            "safari" => browser!(safari),
-            "samsung" => browser!(samsung),
-            _ => {}
+        if !has_any {
+            return Ok(None);
         }
-    }
-
-    if !has_any {
+        Ok(Some(browsers))
+    } else {
         return Ok(None);
     }
-
-    Ok(Some(browsers))
 }
 
 // will remove soon
