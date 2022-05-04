@@ -1,0 +1,19 @@
+{
+    "name": "test_sardines",
+    "type": "module",
+    "source": "src/foo.js",
+    "exports": {
+        "require": "./dist/foo.cjs",
+        "default": "./dist/foo.modern.js"
+    },
+    "main": "./dist/foo.cjs",
+    "unpkg": "./dist/foo.umd.js",
+    "browserslist": [
+        "defaults",
+        "not IE 11",
+        "maintained node versions"
+    ],
+    "srdn": {
+        "cssModules" : true
+    }
+}

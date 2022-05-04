@@ -1,3 +1,5 @@
+mod util;
+
 use browserslist::{resolve, Opts};
 use clap::{Parser, Subcommand};
 use glob::glob;
@@ -54,6 +56,9 @@ fn main() -> Result<(), std::io::Error> {
         println!("verbose: {:?}", cli.debug);
     }
 
+    let config = util::read_package();
+    println!("config: {:?}", config);
+
     // You can check for the existence of subcommands, and if found use their
     // matches just as you would the top level cmd
     match &cli.command {
@@ -107,8 +112,6 @@ fn build_css(path_to_file: &PathBuf, path_to_output: &PathBuf) -> Result<Value, 
     if !path_to_output.to_str().unwrap().ends_with(".css") {
         output_file_path.push(path_to_file);
     }
-    println!("Dist {:?}", output_file_path.display());
-    println!("Source {:?}", path_to_file.display());
 
     let source = fs::read_to_string(path_to_file);
     let contents = source.unwrap();
