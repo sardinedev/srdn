@@ -1,0 +1,29 @@
+{
+  "name": "@sardine/srdn",
+  "version": "0.0.1",
+  "description": "Sardine's favourite build tool for the web",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sardinedev/srdn.git"
+  },
+  "keywords": [
+    "CSS",
+    "Modules",
+    "Typescript",
+    "JSX"
+  ],
+  "author": "Hugo Nogueira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sardinedev/srdn/issues"
+  },
+  "homepage": "https://github.com/sardinedev/srdn#readme",
+  "optionalDependencies": {}
+}
