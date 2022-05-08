@@ -164,9 +164,9 @@ jobs:
         run: |
           cargo build --release --target ${{ matrix.target }}
           mv target/${{ matrix.target }}/release/srdn srdn
-      - name: Strip debug symbols # https://github.com/rust-lang/rust/issues/46034
-        if: ${{ matrix.strip }}
-        run: ${{ matrix.strip }} *.node srdn
+      # - name: Strip debug symbols # https://github.com/rust-lang/rust/issues/46034
+      #   if: ${{ matrix.strip }}
+      #   run: ${{ matrix.strip }} *.node srdn
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
