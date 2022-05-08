@@ -155,11 +155,11 @@ jobs:
       - name: Setup rust target
         run: rustup target add ${{ matrix.target }}
 
-      - uses: bahmutov/npm-install@v1.1.0
-      - name: Build release
-        run: yarn build-release
-        env:
-          RUST_TARGET: ${{ matrix.target }}
+      # - uses: bahmutov/npm-install@v1.1.0
+      # - name: Build release
+      #   run: yarn build-release
+      #   env:
+      #     RUST_TARGET: ${{ matrix.target }}
       - name: Build CLI
         run: |
           cargo build --release --target ${{ matrix.target }}
@@ -184,7 +184,7 @@ jobs:
       # - build-apple-silicon
     steps:
       - uses: actions/checkout@v1
-      - uses: bahmutov/npm-install@v1.1.0
+      # - uses: bahmutov/npm-install@v1.1.0
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
