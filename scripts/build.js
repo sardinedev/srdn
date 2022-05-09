@@ -3,9 +3,9 @@ const pkg = require('../package.json');
 
 const dir = `${__dirname}/..`;
 const triples = [
-    'x86_64-apple-darwin',
-    'aarch64-apple-darwin',
-    //   'x86_64-unknown-linux-gnu',
+    // 'x86_64-apple-darwin',
+    // 'aarch64-apple-darwin',
+    'x86_64-unknown-linux-gnu',
     //   'x86_64-pc-windows-msvc',
     //   'aarch64-unknown-linux-gnu',
     //   'armv7-unknown-linux-gnueabihf',
@@ -14,14 +14,14 @@ const triples = [
 ];
 const cpuToNodeArch = {
     x86_64: 'x64',
-    aarch64: 'arm64',
+    // aarch64: 'arm64',
     //   i686: 'ia32',
     //   armv7: 'arm',
 };
 const sysToNodePlatform = {
     linux: 'linux',
     //   freebsd: 'freebsd',
-    darwin: 'darwin',
+    // darwin: 'darwin',
     //   windows: 'win32',
 };
 
@@ -49,7 +49,7 @@ pkg.optionalDependencies = optionalDependencies;
 fs.writeFileSync(`${dir}/package.json`, JSON.stringify(pkg, false, 2) + '\n');
 
 let cliPkg = { ...pkg };
-cliPkg.name += '-cli';
+// cliPkg.name += '-cli';
 cliPkg.bin = {
     'srdn': 'srdn'
 };

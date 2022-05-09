@@ -204,9 +204,6 @@ jobs:
             cd ../..;
           done
           cd cli
-          echo "Publishing @sardine/srdn-cli...";
-          npm publish
-          cd ..
           echo "Publishing @sardine/srdn...";
           npm publish
   # release-crates:
