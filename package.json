@@ -1,6 +1,6 @@
 {
   "name": "@sardine/srdn",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Sardine's favourite build tool for the web",
   "main": "index.js",
   "publishConfig": {

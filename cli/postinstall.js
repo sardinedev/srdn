@@ -34,7 +34,7 @@ try {
   try {
     fs.copyFileSync(path.join(pkgPath, binary), path.join(__dirname, binary));
   } catch (err) {
-    console.error('Failed to move @sardine/srdn-cli binary into place.');
+    console.error('Failed to move @sardine/srdn binary into place.');
     process.exit(1);
   }
 }
