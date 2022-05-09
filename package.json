@@ -1,13 +1,10 @@
 {
   "name": "@sardine/srdn",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Sardine's favourite build tool for the web",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -25,6 +22,12 @@
     "url": "https://github.com/sardinedev/srdn/issues"
   },
   "homepage": "https://github.com/sardinedev/srdn#readme",
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "detect-libc": "^1.0.3"
   },
