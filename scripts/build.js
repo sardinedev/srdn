@@ -51,7 +51,7 @@ fs.writeFileSync(`${dir}/package.json`, JSON.stringify(pkg, false, 2) + '\n');
 let cliPkg = { ...pkg };
 // cliPkg.name += '-cli';
 cliPkg.bin = {
-    'srdn': 'srdn'
+    'srdn': './srdn'
 };
 delete cliPkg.main;
 delete cliPkg.napi;
