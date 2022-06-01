@@ -1,0 +1,233 @@
+@import '~normalize.css/normalize.css';
+
+@font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Light.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-MediumItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-RegularItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: 900;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-BlackItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Medium.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-BoldItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: 100;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-ThinItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-LightItalic.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Black.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Bold.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Regular.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Thin.woff2');
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans SC';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansSC-Bold.woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans SC';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansSC-Medium.woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans SC';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansSC-Regular.woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansJP-Bold.woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansJP-Medium.woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans JP';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansJP-Regular.woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans KR';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansKR-Bold.woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans KR';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansKR-Medium.woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans KR';
+    src: url('https://assets.lego.com/fonts/v3/noto-sans/NotoSansKR-Regular.woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  html[lang='ko'] > body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  html[lang='ja'] > body {
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  
+  html[lang='zh'] > body {
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  
+  html:not([lang='ko']):not([lang='zh']):not([lang='ja']) > body {
+    font-family: 'Cera Pro', sans-serif;
+  }
+  
+  body {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+  }
+  
+  *:focus {
+    outline: none;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  ul,
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+  
+  ul li,
+  ol li {
+    list-style-type: none;
+  }
+  
+  hr {
+    height: 1px;
+    background-color: #e0e0e0;
+    border: none;
+  }
+  
+  button {
+    color: inherit;
+    font: inherit;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+  }
+  

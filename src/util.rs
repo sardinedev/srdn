@@ -10,11 +10,26 @@ fn true_by_default() -> bool {
     true
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(untagged)]
+pub enum CssModulesOption {
+  Bool(bool),
+  Config(CssModulesConfig),
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct CssModulesConfig {
+  pub pattern: Option<String>,
+  #[serde(default = "true_by_default")]
+  pub dashed_idents: bool,
+}
+
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct SrdnSettings {
-    #[serde(default = "true_by_default", rename = "cssModules")]
-    pub css_module: bool,
+    #[serde(rename = "cssModules")]
+    pub css_modules: Option<CssModulesOption>,
     #[serde(default)]
     pub minify: bool,
 }

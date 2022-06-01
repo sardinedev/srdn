@@ -9,7 +9,7 @@ use serde_json::{json, Value};
 use std::error::Error;
 use std::{fmt, fs, path::PathBuf};
 
-use util::Settings;
+use util::{Settings, CssModulesOption};
 
 /// 4 in 5 sardines recommend this CLI
 #[derive(Parser)]
@@ -122,10 +122,24 @@ fn build_css(
 
     let options = ParserOptions {
         nesting: true,
-        css_modules: src_file_path.contains(".module.css"),
+        custom_media: true,
+        css_modules: if let Some(css_modules) = &settings.srdn.css_modules {
+            match css_modules {
+              CssModulesOption::Bool(true) => Some(parcel_css::css_modules::Config::default()),
+              CssModulesOption::Bool(false) => None,
+              CssModulesOption::Config(c) => Some(parcel_css::css_modules::Config {
+                pattern: c.pattern.as_ref().map_or(Default::default(), |pattern| {
+                  parcel_css::css_modules::Pattern::parse(pattern).unwrap()
+                }),
+                dashed_idents: c.dashed_idents,
+              }),
+            }
+          } else {
+            None
+          },
         ..ParserOptions::default()
     };
-    let mut stylesheet = StyleSheet::parse(src_file_path.into(), &contents, options).unwrap();
+    let mut stylesheet = StyleSheet::parse(src_file_path, &contents, options).unwrap();
 
     let targets = browserslist_to_targets(&settings.browserslist).unwrap();
     stylesheet
@@ -142,7 +156,7 @@ fn build_css(
             ..PrinterOptions::default()
         })
         .unwrap();
-        
+
     let code = res.code;
 
     // creates all sub-directories if they don't exist yet
